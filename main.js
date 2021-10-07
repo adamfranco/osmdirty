@@ -2,7 +2,7 @@ import {Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import Draw from 'ol/interaction/Draw';
-import {OSM, Vector as VectorSource} from 'ol/source';
+import {OSM, TileDebug, Vector as VectorSource} from 'ol/source';
 import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
 import {createXYZ} from 'ol/tilegrid';
 
@@ -17,6 +17,9 @@ const map = new Map({
   layers: [
     new TileLayer({
       source: new OSM()
+    }),
+    new TileLayer({
+      source: new TileDebug(),
     }),
     vector
   ],
