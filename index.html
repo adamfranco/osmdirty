@@ -13,13 +13,34 @@
       }
       #map {
         position: absolute;
-        top: 0;
+        top: 2em;
         bottom: 0;
         width: 100%;
+      }
+      #header {
+        text-align: center;
+      }
+      #header h1 {
+        font-size: 1.5em;
+        margin: 3px;
+        position: absolute;
+        top: 3px;
+        left: 3px;
+      }
+      #header button {
+        margin: 5px;
       }
     </style>
   </head>
   <body>
+    <header id="header">
+      <h1>OSM-dirty</h1>
+      <div class="controls">
+        <button id="create">+ Create polygon</button>
+        <button id="clear" disabled>Clear</button>
+        <button id="markdirty" disabled>Mark Dirty</button>
+      </div>
+    </header>
     <div id="map"></div>
     <script src="./main.js" type="module"></script>
   </body>
