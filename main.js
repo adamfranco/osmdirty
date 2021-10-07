@@ -4,6 +4,7 @@ import OSM from 'ol/source/OSM';
 import Draw from 'ol/interaction/Draw';
 import {OSM, Vector as VectorSource} from 'ol/source';
 import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
+import {createXYZ} from 'ol/tilegrid';
 
 const source = new VectorSource({wrapX: false});
 
@@ -39,11 +40,12 @@ function addPolygon() {
   });
   draw.on('drawend', function () {
     map.removeInteraction(draw);
+    markdirtyButton.disabled = false;
   });
   map.addInteraction(draw);
   createButton.disabled = true;
   clearButton.disabled = false;
-  markdirtyButton.disabled = false;
+  markdirtyButton.disabled = true;
 }
 
 function clearPolygon() {
@@ -72,4 +74,40 @@ maxz.onchange = function () {
   if (parseInt(minz.value) > parseInt(maxz.value)) {
     minz.value = parseInt(maxz.value);
   }
+}
+
+function getTilesForFeature(feature, minz, maxz) {
+  var tiles = [];
+  var grid = createXYZ();
+  // Build a list of all possible tiles that might intersect the full bbox of
+  // the feature.
+  var geometry = feature.getGeometry();
+  for (var z = minz; z <= maxz; z = z + 1) {
+    grid.forEachTileCoord(geometry.getExtent(), z, function (tile_coord) {
+      tiles.push(tile_coord);
+    });
+  }
+  console.log('before filtering', tiles);
+  // Filter out tiles that don't actually intersect the feature.
+  return tiles.filter(function (tile_coord) {
+    return geometry.intersectsExtent(grid.getTileCoordExtent(tile_coord))
+  });
+}
+
+markdirtyButton.onclick = function() {
+  for (var feature of source.getFeatures()) {
+    var tiles = getTilesForFeature(feature, parseInt(minz.value), parseInt(maxz.value));
+    console.log('after filtering', tiles);
+    if (tiles.length > 1000) {
+      alert("You're trying to mark " + tiles.length + " tiles as dirty. Reduce the zoom range or area to keep it under 1,000.");
+    }
+    else if (confirm("This will mark " + tiles.length + " tiles as dirty. Are you sure that you want to fire off this many requests?")) {
+      for (var tile of tiles) {
+        var baseUrl = 'https://a.tile.openstreetmap.org/' + tile[0] + '/' + tile[1] + '/' + tile[2] + '.png';
+        var dirtyUrl = baseUrl + '/dirty';
+        console.log(baseUrl);
+      }
+    }
+  }
+
 }
