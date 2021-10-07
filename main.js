@@ -28,6 +28,8 @@ const map = new Map({
 const createButton = document.getElementById('create');
 const clearButton = document.getElementById('clear');
 const markdirtyButton = document.getElementById('markdirty');
+const minz = document.getElementById('minz');
+const maxz = document.getElementById('maxz');
 
 let draw; // global so we can remove it later
 function addPolygon() {
@@ -59,3 +61,15 @@ createButton.onclick = addPolygon;
 clearButton.onclick = clearPolygon;
 // Start with no polygon on load.
 clearPolygon();
+
+// Constrain zoom ranges to valid.
+minz.onchange = function () {
+  if (parseInt(minz.value) > parseInt(maxz.value)) {
+    maxz.value = parseInt(minz.value);
+  }
+}
+maxz.onchange = function () {
+  if (parseInt(minz.value) > parseInt(maxz.value)) {
+    minz.value = parseInt(maxz.value);
+  }
+}
