@@ -30,6 +30,12 @@
       #header button {
         margin: 5px;
       }
+      #status {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        visibility: hidden;
+      }
     </style>
   </head>
   <body>
@@ -58,6 +64,7 @@
         </label>
         <button id="markdirty" disabled>Mark Dirty</button>
       </div>
+      <div id="status">Marking <span id="status-current"></span> of <span id="status-total"></span></div>
     </header>
     <div id="map"></div>
     <script src="./main.js" type="module"></script>

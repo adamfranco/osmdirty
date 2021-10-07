@@ -35,6 +35,10 @@ const markdirtyButton = document.getElementById('markdirty');
 const minz = document.getElementById('minz');
 const maxz = document.getElementById('maxz');
 
+const status = document.getElementById('status');
+const status_current = document.getElementById('status-current');
+const status_total = document.getElementById('status-total');
+
 let draw; // global so we can remove it later
 function addPolygon() {
   draw = new Draw({
@@ -105,12 +109,26 @@ markdirtyButton.onclick = function() {
       alert("You're trying to mark " + tiles.length + " tiles as dirty. Reduce the zoom range or area to keep it under 1,000.");
     }
     else if (confirm("This will mark " + tiles.length + " tiles as dirty. Are you sure that you want to fire off this many requests?")) {
-      for (var tile of tiles) {
-        var baseUrl = 'https://a.tile.openstreetmap.org/' + tile[0] + '/' + tile[1] + '/' + tile[2] + '.png';
-        var dirtyUrl = baseUrl + '/dirty';
-        console.log(baseUrl);
-      }
+      markTilesDirty(tiles);
     }
   }
+}
 
+function markTilesDirty(tiles) {
+  status.style.visibility = 'visible';
+  status_total.innerHTML = tiles.length;
+  markNextTileDirty(tiles, 0);
+}
+
+function markNextTileDirty(tiles, i) {
+  if (i >= tiles.length) {
+    status.style.visibility = 'hidden';
+  } else {
+    status_current.innerHTML = i + 1;
+    var tile = tiles[i];
+    var baseUrl = 'https://a.tile.openstreetmap.org/' + tile[0] + '/' + tile[1] + '/' + tile[2] + '.png';
+    var dirtyUrl = baseUrl + '/dirty';
+    console.log(dirtyUrl);
+    setTimeout(markNextTileDirty, 500, tiles, i + 1);
+  }
 }
