@@ -1,7 +1,7 @@
 {
   "name": "osmdirty",
   "version": "1.0.0",
-  "description": "Example using OpenLayers with Parcel",
+  "description": "A tool to mark OSM tiles as dirty after edits.",
   "scripts": {
     "start": "parcel serve index.html",
     "build": "parcel build --public-url . index.html"
