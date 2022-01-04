@@ -128,7 +128,14 @@ function markNextTileDirty(tiles, i) {
     var tile = tiles[i];
     var baseUrl = 'https://a.tile.openstreetmap.org/' + tile[0] + '/' + tile[1] + '/' + tile[2] + '.png';
     var dirtyUrl = baseUrl + '/dirty';
-    console.log(dirtyUrl);
-    setTimeout(markNextTileDirty, 500, tiles, i + 1);
+    fetch(dirtyUrl)
+    .then(function(response) {
+      if (!response.ok) {
+        console.log(response);
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      setTimeout(markNextTileDirty, 500, tiles, i + 1);
+    });
+
   }
 }
