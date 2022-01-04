@@ -1,10 +1,8 @@
-# OpenLayers + Parcel
+# OSM-Dirty
 
-This example demonstrates how the `ol` package can be used with Parcel.
+ A tool to mark OSM tiles as dirty after edits. Draw bounding polygons around an area with recent edits and mark the intersecting tiles as "dirty" so that they can be regenerated.
 
-To get started, run the following (requires Node 12+):
-
-    npx create-ol-app my-app --template parcel
+## Usage
 
 Then change into your new `my-app` directory and start a development server (available at http://localhost:1234):
 
