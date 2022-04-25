@@ -20,6 +20,9 @@ not at [z10](https://www.openstreetmap.org/#map=10/44.2386/-72.8871) and lower.
 If you've added mountain peaks and want to see them rendered earlier, only mark
 the zoom range 11-12 as dirty so that a minimum number of tiles are affected.
 
+![Screen Shot 2022-04-25 at 1 39 14 PM](https://user-images.githubusercontent.com/25242/165153719-080b550c-38be-484e-a49f-fc5e46f952a9.png)
+
+
 ## Development Installation & Usage
 
 Install NodeJS and the Node Package Manager (npm).
