@@ -2,7 +2,9 @@
 
  A tool to mark OSM tiles as dirty after edits. Draw bounding polygons around an area with recent edits and mark the intersecting tiles as "dirty" so that they can be regenerated.
 
-## Installation & Usage
+ You can use OSM-Dirty at: https://adamfranco.github.io/osmdirty/
+
+## Installation & Development Usage
 
 Install NodeJS and the Node Package Manager (npm).
 
