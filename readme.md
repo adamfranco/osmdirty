@@ -1,3 +1,5 @@
+_Note: This technique of marking tiles as dirty [no longer works](https://github.com/openstreetmap/operations/issues/681), so archiving this repository._
+
 # OSM-Dirty
 
 A tool to mark OSM tiles as dirty after edits. Draw bounding polygons around an area with recent edits and mark the intersecting tiles as "dirty" so that they can be regenerated.
